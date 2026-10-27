@@ -1,0 +1,14 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout pageTitle={frontmatter.title} description={frontmatter.description} ogType="article">
+  <div class="post-meta">
+    <p>{frontmatter.date}</p>
+    <p class="lead">{frontmatter.description}</p>
+    <p class="tag-list">{frontmatter.tags.map((tag: string) => <a href={`/tags/${tag}`}>#{tag}</a>)}</p>
+    {frontmatter.video && <p>Запис стріму: <a href={frontmatter.video}>YouTube</a></p>}
+  </div>
+  <slot />
+</BaseLayout>

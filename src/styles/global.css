@@ -1,0 +1,429 @@
+:root {
+  color-scheme: light dark;
+
+  --font-heading: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #666666;
+  --line: #dddddd;
+  --surface: #f4f4f4;
+  --accent: #000000;
+  --accent-fg: #ffffff;
+
+  /* One red for both themes: ~4.4:1 contrast on white and on near-black */
+  --ai-red: #e2382e;
+
+  --measure: 44rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d0d0d;
+    --fg: #ededed;
+    --muted: #9a9a9a;
+    --line: #2c2c2c;
+    --surface: #1a1a1a;
+    --accent: #ffffff;
+    --accent-fg: #000000;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 106.25%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  font-optical-sizing: auto;
+}
+
+header,
+main,
+footer {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Headings */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 2.2em 0 0.6em;
+}
+
+h1 {
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  letter-spacing: -0.02em;
+  margin-top: 1.2em;
+}
+
+h2 {
+  font-size: 1.45rem;
+  padding-top: 0.6em;
+  border-top: 1px solid var(--line);
+}
+
+h3 {
+  font-size: 1.15rem;
+}
+
+/* Text */
+
+p,
+ul,
+ol,
+table,
+blockquote {
+  margin: 0 0 1.1em;
+}
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li + li {
+  margin-top: 0.3em;
+}
+
+strong {
+  font-weight: 600;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration-color: var(--fg);
+  text-decoration-thickness: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ai-term {
+  color: var(--ai-red);
+  font-weight: 600;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2rem 0;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.05em 0.3em;
+}
+
+pre {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+/* Notes ("Матеріали", quotes) */
+
+blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.8rem 1rem;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  font-size: 0.95rem;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Tables */
+
+table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  border-bottom: 2px solid var(--fg);
+  white-space: nowrap;
+}
+
+/* Header and navigation */
+
+header {
+  padding-top: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.nav-links a[aria-current="page"] {
+  font-weight: 700;
+}
+
+.menu {
+  display: none;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  background: var(--accent);
+  color: var(--accent-fg);
+  border: 0;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+}
+
+@media (max-width: 40rem) {
+  .menu {
+    display: inline-block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .menu[aria-expanded="true"] + .nav-links {
+    display: flex;
+  }
+}
+
+/* Post meta */
+
+.post-meta {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: -0.4rem;
+}
+
+.post-meta p {
+  margin: 0 0 0.3rem;
+}
+
+.post-meta .lead {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--fg);
+  margin: 0.8rem 0;
+}
+
+.tag-list a {
+  display: inline-block;
+  margin-right: 0.4rem;
+}
+
+/* Cards */
+
+.card-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.card-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 40rem) {
+  .card-grid,
+  .card-grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Depth infographic */
+
+.depth-visual {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.depth-icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  flex: none;
+}
+
+.depth-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+
+.depth-caption {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.depth-note {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.card {
+  position: relative;
+  margin: 0;
+  padding: 1.1rem 1.2rem 1.2rem;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: border-color 0.15s ease;
+}
+
+.card:has(.card-title a):hover {
+  border-color: var(--fg);
+}
+
+.card-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card-title {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1.08rem;
+  line-height: 1.3;
+}
+
+.card-title a {
+  text-decoration: none;
+}
+
+/* Whole card is clickable through the title link */
+.card-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.card-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.card-links {
+  margin: auto 0 0;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1rem;
+}
+
+/* Extra links sit above the stretched title link */
+.card-links a {
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer */
+
+footer {
+  margin-top: 4rem;
+  padding-bottom: 2rem;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+footer hr {
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+
+export async function getStaticPaths() {
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true }),
+  ).sort((a: any, b: any) => a.frontmatter.order - b.frontmatter.order);
+
+  const uniqueTags = [
+    ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+  ];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post: any) =>
+      post.frontmatter.tags.includes(tag),
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={`Тег «${tag}»`}>
+  <ul class="card-grid">
+    {
+      posts.map((post: any) => (
+        <Card
+          href={post.url}
+          label={post.frontmatter.section === "block" ? post.frontmatter.date : "Наскрізна стаття"}
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+        />
+      ))
+    }
+  </ul>
+</BaseLayout>

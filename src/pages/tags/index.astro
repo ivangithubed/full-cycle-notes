@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+const allPosts = Object.values(
+  import.meta.glob("../posts/*.md", { eager: true }),
+);
+
+const tags = [
+  ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+];
+
+const countFor = (tag: string) =>
+  allPosts.filter((post: any) => post.frontmatter.tags.includes(tag)).length;
+
+const plural = (n: number) =>
+  n % 10 === 1 && n % 100 !== 11 ? "стаття"
+  : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? "статті"
+  : "статей";
+
+const pageTitle = "Теги";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <ul class="card-grid">
+    {tags.map((tag: string) => (
+      <Card href={`/tags/${tag}`} title={`#${tag}`} description={`${countFor(tag)} ${plural(countFor(tag))}`} />
+    ))}
+  </ul>
+</BaseLayout>

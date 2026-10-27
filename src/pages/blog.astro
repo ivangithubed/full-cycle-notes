@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Card from "../components/Card.astro";
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }))
+  .sort((a: any, b: any) => a.frontmatter.order - b.frontmatter.order);
+
+const blocks = allPosts.filter((post: any) => post.frontmatter.section === "block");
+const essays = allPosts.filter((post: any) => post.frontmatter.section === "essay");
+
+const pageTitle = "Блог";
+---
+
+
+<BaseLayout pageTitle={pageTitle}>
+  <h2>Наскрізні статті</h2>
+  <ul class="card-grid">
+    {essays.map((post: any) => (
+      <Card href={post.url} title={post.frontmatter.title} description={post.frontmatter.description} />
+    ))}
+  </ul>
+
+  <h2>Конспекти стрімів</h2>
+  <ul class="card-grid">
+    {blocks.map((post: any) => (
+      <Card
+        href={post.url}
+        label={post.frontmatter.date}
+        title={post.frontmatter.title}
+        description={post.frontmatter.description}
+      />
+    ))}
+  </ul>
+</BaseLayout>

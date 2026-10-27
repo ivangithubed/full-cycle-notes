@@ -1,0 +1,17 @@
+---
+const links = [
+  { href: "/", label: "Головна" },
+  { href: "/blog", label: "Блог" },
+  { href: "/tags", label: "Теги" },
+  { href: "/glossary", label: "Словник" },
+  { href: "/about", label: "Про проєкт" },
+];
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const currentPath = Astro.url.pathname.slice(base.length).replace(/\/$/, "") || "/";
+---
+
+<div id="main-menu" class="nav-links">
+    {links.map((link) => (
+      <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>
+    ))}
+</div>

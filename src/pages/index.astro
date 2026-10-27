@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Card from "../components/Card.astro";
+import DepthGauge from "../components/DepthGauge.astro";
+const pageTitle = "Повний цикл розробки: конспект IT-Марафону 2026";
+
+const readingSteps = [
+  {
+    href: "/posts/00-why-full-cycle",
+    title: "Навіщо розробнику у 2026 знати весь цикл",
+    description: "Чому це важливо і чому глибоко вчити все не потрібно.",
+  },
+  {
+    href: "/posts/01-one-feature",
+    title: "Одна фіча через весь цикл",
+    description: "Коротка карта того, як одна функція пройшла всі стріми.",
+  },
+  {
+    href: "/blog",
+    title: "Конспекти стрімів по черзі",
+    description:
+      "Однакова структура: етап і роль → ключові ідеї → приклад на проєкті → потрібна глибина → ШІ в цьому блоці → самоперевірка.",
+  },
+  {
+    href: "/posts/02-ai-depth",
+    title: "Шкала залучення ШІ",
+    description: "Шість рівнів роботи зі ШІ і на якому з них був кожен стрім.",
+  },
+  {
+    href: "/posts/03-pros-cons",
+    title: "Сильні сторони, мінуси й ризики формату",
+    description: "Що дає такий інтенсив і які звички з демо не варто переносити в роботу.",
+  },
+];
+
+const depthLevels = [
+  { level: 1, title: "Знати", description: "Розумієш, що це існує і навіщо; можеш пояснити одним реченням." },
+  { level: 2, title: "Розуміти", description: "Говориш мовою цієї ролі, читаєш її артефакти, ставиш правильні питання." },
+  { level: 3, title: "Вміти", description: "Можеш зробити це руками сам." },
+] as const;
+---
+
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>
+    Це систематизований конспект відкритих стрімів IT-Марафону 2026 — інтенсиву, на якому
+    один навчальний застосунок (сервіс бронювання столиків у ресторанах) проходить через увесь
+    життєвий цикл розробки: вимоги, дизайн, архітектуру, DevOps, хмару й бекенд. Організаційне
+    та внутрішнє від компанії-організатора свідомо відкинуто — залишено те, що корисно знати
+    будь-якому розробнику.
+  </p>
+
+  <h2>Як читати</h2>
+  <ul class="card-grid">
+    {readingSteps.map((step, i) => (
+      <Card label={`Крок ${i + 1}`} href={step.href} title={step.title} description={step.description} />
+    ))}
+  </ul>
+
+  <h2>Шкала глибини, яку використано в конспектах</h2>
+  <ul class="card-grid card-grid--3">
+    {depthLevels.map((item) => (
+      <Card title={item.title} description={item.description}>
+        <DepthGauge slot="media" level={item.level} />
+      </Card>
+    ))}
+  </ul>
+  <p class="depth-note">
+    Стовпчики — як шари під поверхнею: що більше їх зафарбовано, то глибше занурення в тему.
+    У кожному конспекті цю шкалу застосовано в розділі «Скільки цього потрібно розробнику».
+  </p>
+</BaseLayout>

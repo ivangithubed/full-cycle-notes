@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Card from "../components/Card.astro";
+const pageTitle = "Про проєкт";
+
+const disclaimers = [
+  {
+    title: "Не офіційні матеріали",
+    description: "Сайт не є матеріалами інтенсиву чи компанії-організатора.",
+  },
+  {
+    title: "Не пов'язаний з організатором",
+    description: "Не схвалений компанією-організатором і не претендує на представлення її позиції.",
+  },
+  {
+    title: "Права — у власників",
+    description: "Усі права на оригінальні стріми та матеріали належать їхнім власникам. Тут — лише переказ і власна інтерпретація.",
+  },
+  {
+    title: "Аналітика — суб'єктивна",
+    description: "Статті про переваги, ризики й шкалу залучення ШІ — думка автора конспекту, а не позиція лекторів чи організатора.",
+  },
+  {
+    title: "Можливі неточності",
+    description: "У разі розбіжностей правильним є оригінальний запис стріму.",
+  },
+];
+
+const program = [
+  { date: "19.10", topic: "Software Requirements in Scrum", video: "https://www.youtube.com/watch?v=Cv3Uoflje6c", posts: [{ href: "/posts/11-requirements", label: "конспект" }] },
+  { date: "20.10", topic: "UI/UX дизайн", video: "https://www.youtube.com/watch?v=t0d1vfxBU4M", posts: [{ href: "/posts/12-ux-ui", label: "конспект" }] },
+  { date: "21.10", topic: "Software architecture / Хто такий DevOps?", video: "https://www.youtube.com/watch?v=zD7MRbE4HdM", posts: [{ href: "/posts/13-architecture", label: "конспект: архітектура" }, { href: "/posts/14-devops", label: "конспект: DevOps" }] },
+  { date: "22.10", topic: "Хмарні сервіси AWS", video: "https://www.youtube.com/watch?v=LufzCX38lYY", posts: [{ href: "/posts/15-cloud-iac", label: "конспект" }] },
+  { date: "23.10", topic: "Backend-розробка на .NET", video: "https://www.youtube.com/watch?v=Qj3rahJ2RyE", posts: [{ href: "/posts/16-backend-theory", label: "конспект" }] },
+  { date: "26.10", topic: "Backend на .NET (практика)", video: "https://www.youtube.com/watch?v=TO0x2r_EFlg", posts: [{ href: "/posts/17-backend-practice", label: "конспект" }] },
+  { date: "27.10", topic: "Web programming Angular", posts: [] },
+  { date: "28.10", topic: "Мануальне тестування", posts: [] },
+  { date: "29.10", topic: "Автоматизоване тестування", posts: [] },
+];
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <h2>Що це</h2>
+  <p>
+    Неофіційний навчальний конспект, згенерований на основі відкритих матеріалів
+    IT-Марафону 2026 «розробка проєкту з AI» — публічної сторінки програми та публічних записів
+    стрімів. Матеріали систематизовано для навчання: організаційну й внутрішню інформацію
+    організатора відкинуто, додано структуру, аналітику та питання для самоперевірки.
+  </p>
+
+  <h2>Застереження</h2>
+  <ul class="card-grid">
+    {disclaimers.map((item) => <Card title={item.title} description={item.description} />)}
+  </ul>
+
+  <h2>Програма і записи</h2>
+  <p>
+    Офіційна сторінка програми:{" "}
+    <a href="https://campus.epam.ua/ua/event/191">campus.epam.ua/ua/event/191</a>.
+  </p>
+  <ul class="card-grid">
+    {
+      program.map((item) => (
+        <Card
+          label={item.date}
+          title={item.topic}
+          href={item.posts.length === 1 ? item.posts[0].href : undefined}
+          description={item.video ? undefined : "Ще не проведено"}
+        >
+          {item.video && (
+            <p class="card-links">
+              <a href={item.video}>запис стріму</a>
+              {item.posts.map((post) => <a href={post.href}>{post.label}</a>)}
+            </p>
+          )}
+        </Card>
+      ))
+    }
+  </ul>
+</BaseLayout>
