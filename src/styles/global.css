@@ -13,15 +13,16 @@
   --accent: #000000;
   --accent-fg: #ffffff;
 
-  /* One red for both themes: ~4.4:1 contrast on white and on near-black */
-  --ai-red: #e2382e;
+  /* One red for both themes: 4.58:1 on white and on pure black (WCAG AA needs 4.5:1).
+     Works only because the dark background is #000; a lighter dark background breaks it. */
+  --ai-red: #db3630;
 
   --measure: 44rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0d0d0d;
+    --bg: #000000;
     --fg: #ededed;
     --muted: #9a9a9a;
     --line: #2c2c2c;
