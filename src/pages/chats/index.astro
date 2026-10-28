@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+const allChats = Object.values(import.meta.glob('./*.md', { eager: true }))
+  .sort((a: any, b: any) => a.frontmatter.order - b.frontmatter.order);
+
+const pageTitle = "Чати стрімів";
+---
+
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>
+    Що питали й обговорювали глядачі в чаті під час стрімів: головні теми, що турбує аудиторію
+    і які висновки з цього можна зробити. Привітання, флуд і повтори відкинуто, ніки учасників не наводяться.
+  </p>
+  <ul class="card-grid">
+    {allChats.map((chat: any) => (
+      <Card
+        href={chat.url}
+        label={chat.frontmatter.date}
+        title={chat.frontmatter.title}
+        description={chat.frontmatter.description}
+      />
+    ))}
+  </ul>
+</BaseLayout>
