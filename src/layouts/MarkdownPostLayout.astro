@@ -7,7 +7,7 @@ const { frontmatter } = Astro.props;
   <div class="post-meta">
     <p>{frontmatter.date}</p>
     <p class="lead">{frontmatter.description}</p>
-    <p class="tag-list">{frontmatter.tags.map((tag: string) => <a href={`/tags/${tag}`}>#{tag}</a>)}</p>
+    {frontmatter.tags?.length > 0 && <p class="tag-list">{frontmatter.tags.map((tag: string) => <a href={`/tags/${tag}`}>#{tag}</a>)}</p>}
     {frontmatter.video && <p>Запис стріму: <a href={frontmatter.video}>YouTube</a></p>}
   </div>
   <slot />
